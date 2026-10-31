@@ -136,7 +136,8 @@ void RegisterExceptionHandler(WebApplicationBuilder webApplicationBuilder)
 async Task StartRabbitMqBusAndDoSubscribeAsync(WebApplication wa)
 {
     var bus = wa.Services.GetRequiredService<IRabbitMqBus>();
-    var upsertConsumer = wa.Services
+    await using var scope = wa.Services.CreateAsyncScope();
+    var upsertConsumer = scope.ServiceProvider
         .GetRequiredService<IRabbitMqConsumer<UpsertServiceRequestMessage>>();
 
     await bus.StartAsync(async initializedBus =>
@@ -145,5 +146,4 @@ async Task StartRabbitMqBusAndDoSubscribeAsync(WebApplication wa)
             upsertConsumer);
     });
 }
-
 #endregion
