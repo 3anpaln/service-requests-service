@@ -1,6 +1,10 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using service_requests_service.BackgroundServices;
+using service_requests_service.Bus;
+using service_requests_service.Bus.Consumers;
+using service_requests_service.Bus.Messages;
 using service_requests_service.Contracts;
 using service_requests_service.Exceptions;
 using service_requests_service.Models;
@@ -12,16 +16,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 RegisterPostgres(builder);
 RegisterServices(builder);
+RegisterRabbitMq(builder);
 RegisterValidators(builder);
 RegisterExceptionHandler(builder);
 
-
-
 var app = builder.Build();
 
+app.UseExceptionHandler();
 
+//Apply migrations
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider
+        .GetRequiredService<AppDbContext>();
 
+    await db.Database.MigrateAsync();
+}
 
+await StartRabbitMqBusAndDoSubscribeAsync(app);
 
 //For production must check deeper
 app.MapGet("/health", () => Results.Ok(new
@@ -92,6 +104,15 @@ void RegisterServices(WebApplicationBuilder b)
     b.Services.AddScoped<IInboxService, InboxService>();
     b.Services.AddScoped<IOutboxService, OutboxService>();
     b.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
+    
+    b.Services.AddHostedService<OutboxBackgroundService>();
+}
+
+// For production separate registration to specific layer
+void RegisterRabbitMq(WebApplicationBuilder b)
+{
+    b.Services.AddSingleton<IRabbitMqBus, RabbitMqBus>();
+    b.Services.AddScoped<IRabbitMqConsumer<UpsertServiceRequestMessage>, UpsertServiceRequestEventConsumer>();
 }
 
 // For production separate registration to specific layer/move to specific place on this
@@ -105,6 +126,24 @@ void RegisterExceptionHandler(WebApplicationBuilder webApplicationBuilder)
 {
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddProblemDetails();
+}
+
+#endregion
+
+#region App Actions
+
+// For production separate start to specific layer
+async Task StartRabbitMqBusAndDoSubscribeAsync(WebApplication wa)
+{
+    var bus = wa.Services.GetRequiredService<IRabbitMqBus>();
+    var upsertConsumer = wa.Services
+        .GetRequiredService<IRabbitMqConsumer<UpsertServiceRequestMessage>>();
+
+    await bus.StartAsync(async initializedBus =>
+    {
+        await initializedBus.SubscribeAsync<IRabbitMqConsumer<UpsertServiceRequestMessage>, UpsertServiceRequestMessage>(
+            upsertConsumer);
+    });
 }
 
 #endregion

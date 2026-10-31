@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service-requests-service", "service-requests-service\service-requests-service.csproj", "{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{688D2786-CF0E-4A5F-919C-7D036F960B02}"
 	ProjectSection(SolutionItems) = preProject
 		.env = .env
@@ -14,18 +12,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6CAC2834
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DF217049-592B-4189-9726-072A8D9D9662}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service-requests-service", "src\service-requests-service\service-requests-service.csproj", "{0A4DECCF-337E-4127-97DC-5E47EB202956}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A4DECCF-337E-4127-97DC-5E47EB202956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A4DECCF-337E-4127-97DC-5E47EB202956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A4DECCF-337E-4127-97DC-5E47EB202956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A4DECCF-337E-4127-97DC-5E47EB202956}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF} = {DF217049-592B-4189-9726-072A8D9D9662}
+		{0A4DECCF-337E-4127-97DC-5E47EB202956} = {DF217049-592B-4189-9726-072A8D9D9662}
 	EndGlobalSection
 EndGlobal

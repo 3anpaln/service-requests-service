@@ -1,8 +1,9 @@
-﻿using service_requests_service.Models;
+﻿using service_requests_service.Contracts;
+using service_requests_service.Models;
 
 namespace service_requests_service.Bus.Messages;
 
-public class UpsertServiceRequestMessage
+public class UpsertServiceRequestMessage : IRabbitMqMessage
 {
     public UpsertServiceRequestMessage(
         Guid serviceRequestId,
