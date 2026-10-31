@@ -1,0 +1,59 @@
+# .NET build and publish outputs
+[Bb]in/
+[Oo]bj/
+/artifacts/
+/publish/
+/out/
+
+# NuGet restore and package outputs (keep NuGet.Config and packages.lock.json)
+/packages/
+*.nupkg
+*.snupkg
+
+# Visual Studio: local workspace state and user preferences
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider and ReSharper: local project state and caches
+.idea/
+*.iml
+*.DotSettings.user
+_ReSharper*/
+.ReSharper*/
+
+# Test results, coverage reports, and benchmark outputs
+[Tt]est[Rr]esults/
+[Cc]overage/
+*.trx
+*.coverage
+*.coveragexml
+coverage.json
+coverage.cobertura.xml
+coverage.opencover.xml
+coverage.info
+BenchmarkDotNet.Artifacts/
+
+# Local environment values; keep configuration examples versioned
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Opt-in local appsettings overrides; keep shared appsettings files versioned
+appsettings.[Ll]ocal.json
+appsettings.*.[Ll]ocal.json
+
+# Runtime logs and temporary files
+[Ll]ogs/
+*.log
+*.tmp
+*.temp
+*~
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
