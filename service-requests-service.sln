@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "service-requests-service", "service-requests-service\service-requests-service.csproj", "{BD21DD60-FFC6-4FB5-A9A4-410D66759ECF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{688D2786-CF0E-4A5F-919C-7D036F960B02}"
+	ProjectSection(SolutionItems) = preProject
+		.env = .env
+		.env.example = .env.example
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6CAC2834-5A2E-4437-B994-3855B55B7EA8}"
 EndProject
